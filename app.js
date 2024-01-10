@@ -7,7 +7,7 @@ const helmet = require('helmet');
 //compression generally refers to the process of compressing data or files
 const compression = require('compression');
 //HTTP request logger middleware for node.js ,it provides a simple and configurable way to log HTTP requests and responses in your server application. 
-const morgan = require('morgan'); 
+const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -56,6 +56,13 @@ app.use('/premium', premiumRoute);
 
 //to call forgot password 
 app.use('/password', forgotpasswordRoute);
+
+//apart from predefined routes if user hits anything then login page will popup 
+app.use((req, res) => {
+  console.log('request = ' + req.url);
+  res.sendFile(path.join(__dirname, `FontEnd Files/${req.url}`));
+})
+
 
 //to show the FK relationship
 User.hasMany(Order);
